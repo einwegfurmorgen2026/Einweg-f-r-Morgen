@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ein Weg für Morgen – Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit.">
+  <title>Ein Weg für Morgen</title>
+  <style>
+    :root{
+      --bg:#f7faf9; --surface:#fff; --text:#17332d; --muted:#5c706b;
+      --primary:#157a6e; --primary-dark:#0d5e55; --accent:#d9a441;
+      --border:#dce8e5; --shadow:0 18px 45px rgba(23,51,45,.10);
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    .layout{display:flex;min-height:100vh}
+    .sidebar{position:fixed;left:0;top:0;width:270px;height:100vh;background:#123d36;color:#fff;padding:28px 20px;display:flex;flex-direction:column;z-index:20}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:35px}
+    .logo{width:52px;height:52px;border-radius:14px;background:#fff;display:grid;place-items:center;color:var(--primary);font-weight:800;font-size:20px;overflow:hidden}
+    .logo img{width:100%;height:100%;object-fit:contain;display:block}
+    .brand h1{font-size:16px;line-height:1.2;margin:0}.brand small{opacity:.72}
+    nav{display:grid;gap:7px}
+    nav a{padding:11px 13px;border-radius:10px;color:#eaf6f3;transition:.2s}
+    nav a:hover{background:rgba(255,255,255,.10);transform:translateX(2px)}
+    .lang{margin-top:auto}
+    .lang button{border:1px solid rgba(255,255,255,.25);background:transparent;color:white;padding:8px 10px;border-radius:8px;cursor:pointer;margin:2px}
+    .lang button.active,.lang button:hover{background:#fff;color:#123d36}
+    .main{margin-left:270px;width:calc(100% - 270px)}
+    .mobilebar{display:none}
+    section{padding:90px 8%;max-width:1250px;margin:auto}
+    .hero-logo{margin-bottom:18px}.hero-logo img{width:min(260px,70vw);height:auto;display:block;border-radius:18px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#e9f5f1,#f7faf9)}
+    .hero-inner{max-width:850px}
+    .eyebrow{display:inline-block;color:var(--primary);font-weight:750;letter-spacing:.08em;text-transform:uppercase;font-size:.82rem;margin-bottom:12px}
+    h2{font-size:clamp(2rem,4vw,3.3rem);line-height:1.12;margin:0 0 18px}
+    h3{margin-top:0;font-size:1.25rem}
+    p{color:var(--muted)}
+    .hero h2{font-size:clamp(2.7rem,6vw,5rem)}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;font-weight:700;background:var(--primary);color:#fff}
+    .btn:hover{background:var(--primary-dark)}
+    .btn.secondary{background:#fff;color:var(--primary);border:1px solid var(--border)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid.two{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--surface);padding:25px;border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 25px rgba(23,51,45,.05)}
+    .icon{font-size:1.8rem;margin-bottom:8px}
+    .values{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .value{padding:20px;background:#fff;border:1px solid var(--border);border-radius:14px}
+    .contact{background:#123d36;color:#fff;border-radius:24px;padding:42px}
+    .contact p{color:#d8ebe7}
+    footer{background:#0d2d29;color:#cce0dc;padding:35px 8%;margin-left:0}
+    footer a{text-decoration:underline}
+    .legal{font-size:.94rem}
+    [dir="rtl"] .sidebar{left:auto;right:0}
+    [dir="rtl"] .main{margin-left:0;margin-right:270px}
+    [dir="rtl"] .brand{flex-direction:row-reverse}
+    [dir="rtl"] nav a:hover{transform:translateX(-2px)}
+    @media(max-width:850px){
+      .sidebar{display:none}.main{margin:0;width:100%}.mobilebar{display:flex;position:sticky;top:0;z-index:30;background:#123d36;color:white;padding:12px 16px;justify-content:space-between;align-items:center}
+      .mobilebar button{background:none;border:1px solid #ffffff55;color:#fff;border-radius:8px;padding:8px 10px}
+      section{padding:65px 6%}.grid,.grid.two,.values{grid-template-columns:1fr}
+      .hero{min-height:calc(100vh - 58px)}
+      footer{padding:30px 6%}
+      [dir="rtl"] .main{margin:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="mobilebar">
+    <strong>Ein Weg für Morgen</strong>
+    <button onclick="toggleMobile()">☰</button>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo" id="logoBox"><img src="logo.png" alt="Logo von Ein Weg für Morgen"></div>
+      <div><h1>Ein Weg für Morgen</h1><small>Verein für Zukunft</small></div>
+    </div>
+    <nav>
+      <a href="#home" data-t="navHome">Startseite</a>
+      <a href="#about" data-t="navAbout">Über uns</a>
+      <a href="#goals" data-t="navGoals">Unsere Ziele</a>
+      <a href="#values" data-t="navValues">Unsere Werte</a>
+      <a href="#offers" data-t="navOffers">Was wir machen</a>
+      <a href="#projects" data-t="navProjects">Projekte & Veranstaltungen</a>
+      <a href="#membership" data-t="navMembership">Mitglied werden</a>
+      <a href="#cooperation" data-t="navCoop">Kooperationen</a>
+      <a href="#contact" data-t="navContact">Kontakt</a>
+      <a href="#imprint" data-t="navImprint">Impressum</a>
+      <a href="#privacy" data-t="navPrivacy">Datenschutz</a>
+    </nav>
+    <div class="lang">
+      <span>🌍</span>
+      <button onclick="setLang('de')" id="de">DE</button>
+      <button onclick="setLang('en')" id="en">EN</button>
+      <button onclick="setLang('ar')" id="ar">عربي</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <span class="eyebrow" data-t="eyebrow">Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit</span>
+        <h2 data-t="heroTitle">Ein Weg für Morgen – Chancen schaffen. Zukunft gestalten.</h2>
+        <p data-t="heroText">Wir setzen uns für Bildung, Chancengleichheit, soziale Teilhabe, Nachhaltigkeit und neue Perspektiven ein. Wir schaffen Räume für Begegnung, Bildung, Austausch, gegenseitige Unterstützung und persönliche Entwicklung. Dabei fördern wir Chancengleichheit, gesellschaftliche Teilhabe und neue Perspektiven.</p>
+        <div class="buttons">
+          <a class="btn" href="#about" data-t="more">Mehr über uns</a>
+          <a class="btn secondary" href="#membership" data-t="join">Mitglied werden</a>
+          <a class="btn secondary" href="#contact" data-t="contactBtn">Kontakt</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <span class="eyebrow" data-t="aboutEyebrow">Über uns</span>
+      <h2 data-t="aboutTitle">Ein Weg für Morgen</h2>
+      <p data-t="aboutText">Ein Weg für Morgen ist ein gemeinnütziger Verein mit Sitz in Wien. Wir möchten Frauen dabei unterstützen, ihre Fähigkeiten zu stärken, neue Perspektiven zu entwickeln und aktiv am gesellschaftlichen Leben teilzunehmen. Unsere Angebote stehen grundsätzlich allen Interessierten offen.</p>
+      <div class="card">
+        <h3 data-t="visionTitle">Unsere Vision</h3>
+        <p data-t="visionText">Wir wünschen uns eine Gesellschaft, in der Menschen unabhängig von Herkunft und Lebensgeschichte Zugang zu Bildung, Chancen, Gemeinschaft und gesellschaftlicher Teilhabe haben.</p>
+      </div>
+    </section>
+
+    <section id="goals">
+      <span class="eyebrow" data-t="goalsEyebrow">Unsere Ziele</span>
+      <h2 data-t="goalsTitle">Woran wir arbeiten</h2>
+      <div class="grid">
+        <div class="card"><div class="icon">📚</div><h3 data-t="g1">Bildung & Wissen</h3><p data-t="g1p">Bildung, Weiterbildung, Sprachkompetenzen und Zugang zu wichtigen Informationen fördern.</p></div>
+        <div class="card"><div class="icon">🌱</div><h3 data-t="g2">Chancengleichheit & Empowerment</h3><p data-t="g2p">Menschen stärken und sie auf ihrem selbstbestimmten Weg unterstützen.</p></div>
+        <div class="card"><div class="icon">🤝</div><h3 data-t="g3">Soziale Teilhabe & Integration</h3><p data-t="g3p">Begegnung, Austausch, Vernetzung und aktive gesellschaftliche Beteiligung ermöglichen.</p></div>
+        <div class="card"><div class="icon">🧭</div><h3 data-t="g4">Berufliche Orientierung</h3><p data-t="g4p">Informationen über Ausbildung, Weiterbildung, Arbeitswelt und berufliche Entwicklung vermitteln.</p></div>
+        <div class="card"><div class="icon">🌍</div><h3 data-t="g5">Interkultureller Austausch</h3><p data-t="g5p">Verständnis und Dialog zwischen Menschen unterschiedlicher kultureller Hintergründe fördern.</p></div>
+        <div class="card"><div class="icon">♻️</div><h3 data-t="g6">Nachhaltigkeit & Umwelt</h3><p data-t="g6p">Klima- und Umweltschutz, Biodiversität und verantwortungsvollen Umgang mit Ressourcen vermitteln.</p></div>
+        <div class="card"><div class="icon">💻</div><h3 data-t="g7">Technik & Digitalisierung</h3><p data-t="g7p">Digitale Kompetenzen fördern und Zugang zu technischen und digitalen Themen erleichtern.</p></div>
+      </div>
+    </section>
+
+    <section id="values">
+      <span class="eyebrow" data-t="valuesEyebrow">Unsere Werte</span>
+      <h2 data-t="valuesTitle">E – W – F – M</h2>
+      <div class="values">
+        <div class="value"><h3>E – Empowerment</h3><p data-t="v1">Menschen stärken und ihre Fähigkeiten sichtbar machen.</p></div>
+        <div class="value"><h3>W – Wissen</h3><p data-t="v2">Bildung, Information und lebenslanges Lernen fördern.</p></div>
+        <div class="value"><h3>F – Förderung</h3><p data-t="v3">Chancen schaffen und persönliche sowie gesellschaftliche Entwicklung unterstützen.</p></div>
+        <div class="value"><h3>M – Miteinander</h3><p data-t="v4">Respekt, Zusammenhalt, Begegnung und gegenseitige Unterstützung leben.</p></div>
+      </div>
+    </section>
+
+    <section id="offers">
+      <span class="eyebrow" data-t="offersEyebrow">Was wir machen</span>
+      <h2 data-t="offersTitle">Angebote für Menschen und Gemeinschaft</h2>
+      <div class="grid two">
+        <div class="card"><h3 data-t="o1">Workshops & Bildung</h3><p data-t="o1p">Workshops, Informationsveranstaltungen, Seminare und Gesprächsrunden zu gesellschaftlichen und praktischen Themen.</p></div>
+        <div class="card"><h3 data-t="o2">Orientierung & Beratung</h3><p data-t="o2p">Informationen und Orientierung in Bereichen wie Bildung, Beruf, Integration und gesellschaftliche Teilhabe.</p></div>
+        <div class="card"><h3 data-t="o3">Begegnung & Gemeinschaft</h3><p data-t="o3p">Veranstaltungen, kulturelle Aktivitäten und gemeinsame Projekte fördern Austausch, Vernetzung und ein respektvolles Miteinander.</p></div>
+        <div class="card"><h3 data-t="o4">Nachhaltigkeit & Zukunft</h3><p data-t="o4p">Umwelt, Nachhaltigkeit, Digitalisierung und Technik – und die Frage, wie wir gemeinsam eine lebenswerte Zukunft gestalten.</p></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <span class="eyebrow" data-t="projectsEyebrow">Projekte & Veranstaltungen</span>
+      <h2 data-t="projectsTitle">Aktuelle Aktivitäten</h2>
+      <div class="card">
+        <h3 data-t="soon">Demnächst verfügbar</h3>
+        <p data-t="projectsText">Neue Workshops, Veranstaltungen und Termine werden hier regelmäßig veröffentlicht. Bei Interesse können Sie uns gerne kontaktieren.</p>
+        <a class="btn" href="mailto:einwegfurmorgen2026@gmail.com" data-t="ask">Jetzt anfragen</a>
+      </div>
+    </section>
+
+    <section id="membership">
+      <span class="eyebrow" data-t="membershipEyebrow">Mitglied werden</span>
+      <h2 data-t="membershipTitle">Gemeinsam können wir mehr erreichen.</h2>
+      <p data-t="membershipText">Sie möchten unsere Arbeit unterstützen oder aktiv Teil unseres Vereins werden? Wir freuen uns über Menschen, die unsere Ziele und Werte teilen und sich gemeinsam mit uns engagieren möchten.</p>
+      <div class="card"><h3 data-t="fee">Jährlicher Mitgliedsbeitrag: 39 €</h3><a class="btn" href="mailto:einwegfurmorgen2026@gmail.com" data-t="membershipContact">Informationen zur Mitgliedschaft</a></div>
+    </section>
+
+    <section id="cooperation">
+      <span class="eyebrow" data-t="coopEyebrow">Kooperationen</span>
+      <h2 data-t="coopTitle">Gemeinsam Wirkung schaffen</h2>
+      <div class="grid">
+        <div class="card">🏫 <span data-t="c1">Bildungseinrichtungen</span></div>
+        <div class="card">💬 <span data-t="c2">Beratungsstellen</span></div>
+        <div class="card">🏛️ <span data-t="c3">Behörden und öffentliche Einrichtungen</span></div>
+        <div class="card">🤲 <span data-t="c4">Vereine und gemeinnützige Organisationen</span></div>
+        <div class="card">🎭 <span data-t="c5">Soziale und kulturelle Einrichtungen</span></div>
+        <div class="card">🏢 <span data-t="c6">Unternehmen und Projektpartner</span></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <span class="eyebrow" style="color:#b8e5dc" data-t="contactEyebrow">Kontakt</span>
+        <h2 data-t="contactTitle">Wir freuen uns auf Ihre Nachricht.</h2>
+        <p><strong>Ein Weg für Morgen</strong><br>Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit</p>
+        <p>Rennbahnweg 54A/Top 2<br>1220 Wien<br>Österreich</p>
+        <p><strong>E-Mail:</strong> <a href="mailto:einwegfurmorgen2026@gmail.com">einwegfurmorgen2026@gmail.com</a><br><strong>ZVR:</strong> 1943324259</p>
+        <a class="btn" style="background:#fff;color:#123d36" href="mailto:einwegfurmorgen2026@gmail.com" data-t="email">E-Mail schreiben</a>
+      </div>
+    </section>
+
+    <section id="imprint">
+      <span class="eyebrow" data-t="imprintEyebrow">Impressum</span>
+      <h2 data-t="imprintTitle">Rechtliche Angaben</h2>
+      <div class="card legal">
+        <p><strong>Medieninhaber und Herausgeber:</strong><br>Ein Weg für Morgen – Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit</p>
+        <p><strong>Vereinssitz:</strong> Wien, Österreich</p>
+        <p><strong>Zustellanschrift:</strong><br>Rennbahnweg 54A/Top 2<br>1220 Wien<br>Österreich</p>
+        <p><strong>ZVR-Zahl:</strong> 1943324259</p>
+        <p><strong>E-Mail:</strong> einwegfurmorgen2026@gmail.com</p>
+        <p><strong>Vertretungsbefugte Organe:</strong><br>Obfrau: Dr. rer. nat. Masarra Bashir<br>Obfrau-Stellvertretung: Dr. Maha Mohamed Ahmed Mahmoud<br>Kassierin: Nada Mohamed Abuelgasi Mohamed Ahmed</p>
+        <p><strong>Vereinszweck:</strong> Der Verein ist nicht auf Gewinn gerichtet und verfolgt gemeinnützige Zwecke. Zweck des Vereins ist insbesondere die Förderung von Bildung, Integration, gesellschaftlicher Teilhabe, Chancengleichheit, interkulturellem Austausch und gegenseitiger Unterstützung von Frauen und jungen Menschen.</p>
+        <p data-t="party">Der Verein ist parteipolitisch unabhängig.</p>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <span class="eyebrow" data-t="privacyEyebrow">Datenschutz</span>
+      <h2 data-t="privacyTitle">Datenschutz</h2>
+      <div class="card">
+        <p data-t="privacyText">Die Datenschutzerklärung wird entsprechend der für diese Website verwendeten technischen Plattform und Dienste erstellt.</p>
+        <p><strong>Verantwortlicher:</strong><br>Ein Weg für Morgen – Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit<br>Rennbahnweg 54A/Top 2<br>1220 Wien, Österreich<br>einwegfurmorgen2026@gmail.com</p>
+      </div>
+    </section>
+
+    <footer>
+      <strong>Ein Weg für Morgen</strong> · Bildung · Teilhabe · Nachhaltigkeit · 1220 Wien · ZVR 1943324259<br>
+      <span data-t="footer">Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit</span>
+    </footer>
+  </main>
+
+<script>
+const T = {
+de:{
+navHome:"Startseite",navAbout:"Über uns",navGoals:"Unsere Ziele",navValues:"Unsere Werte",navOffers:"Was wir machen",navProjects:"Projekte & Veranstaltungen",navMembership:"Mitglied werden",navCoop:"Kooperationen",navContact:"Kontakt",navImprint:"Impressum",navPrivacy:"Datenschutz",
+eyebrow:"Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit",heroTitle:"Ein Weg für Morgen – Chancen schaffen. Zukunft gestalten.",heroText:"Wir setzen uns für Bildung, Chancengleichheit, soziale Teilhabe, Nachhaltigkeit und neue Perspektiven ein. Wir schaffen Räume für Begegnung, Bildung, Austausch, gegenseitige Unterstützung und persönliche Entwicklung. Dabei fördern wir Chancengleichheit, gesellschaftliche Teilhabe und neue Perspektiven.",more:"Mehr über uns",join:"Mitglied werden",contactBtn:"Kontakt",
+aboutEyebrow:"Über uns",aboutTitle:"Ein Weg für Morgen",aboutText:"Ein Weg für Morgen ist ein gemeinnütziger Verein mit Sitz in Wien. Wir möchten Frauen dabei unterstützen, ihre Fähigkeiten zu stärken, neue Perspektiven zu entwickeln und aktiv am gesellschaftlichen Leben teilzunehmen. Unsere Angebote stehen grundsätzlich allen Interessierten offen.",visionTitle:"Unsere Vision",visionText:"Wir wünschen uns eine Gesellschaft, in der Menschen unabhängig von Herkunft und Lebensgeschichte Zugang zu Bildung, Chancen, Gemeinschaft und gesellschaftlicher Teilhabe haben.",
+goalsEyebrow:"Unsere Ziele",goalsTitle:"Woran wir arbeiten",g1:"Bildung & Wissen",g1p:"Bildung, Weiterbildung, Sprachkompetenzen und Zugang zu wichtigen Informationen fördern.",g2:"Chancengleichheit & Empowerment",g2p:"Menschen stärken und sie auf ihrem selbstbestimmten Weg unterstützen.",g3:"Soziale Teilhabe & Integration",g3p:"Begegnung, Austausch, Vernetzung und aktive gesellschaftliche Beteiligung ermöglichen.",g4:"Berufliche Orientierung",g4p:"Informationen über Ausbildung, Weiterbildung, Arbeitswelt und berufliche Entwicklung vermitteln.",g5:"Interkultureller Austausch",g5p:"Verständnis und Dialog zwischen Menschen unterschiedlicher kultureller Hintergründe fördern.",g6:"Nachhaltigkeit & Umwelt",g6p:"Klima- und Umweltschutz, Biodiversität und verantwortungsvollen Umgang mit Ressourcen vermitteln.",g7:"Technik & Digitalisierung",g7p:"Digitale Kompetenzen fördern und Zugang zu technischen und digitalen Themen erleichtern.",
+valuesEyebrow:"Unsere Werte",valuesTitle:"E – W – F – M",v1:"Menschen stärken und ihre Fähigkeiten sichtbar machen.",v2:"Bildung, Information und lebenslanges Lernen fördern.",v3:"Chancen schaffen und persönliche sowie gesellschaftliche Entwicklung unterstützen.",v4:"Respekt, Zusammenhalt, Begegnung und gegenseitige Unterstützung leben.",
+offersEyebrow:"Was wir machen",offersTitle:"Angebote für Menschen und Gemeinschaft",o1:"Workshops & Bildung",o1p:"Workshops, Informationsveranstaltungen, Seminare und Gesprächsrunden zu gesellschaftlichen und praktischen Themen.",o2:"Orientierung & Beratung",o2p:"Informationen und Orientierung in Bereichen wie Bildung, Beruf, Integration und gesellschaftliche Teilhabe.",o3:"Begegnung & Gemeinschaft",o3p:"Veranstaltungen, kulturelle Aktivitäten und gemeinsame Projekte fördern Austausch, Vernetzung und ein respektvolles Miteinander.",o4:"Nachhaltigkeit & Zukunft",o4p:"Umwelt, Nachhaltigkeit, Digitalisierung und Technik – und die Frage, wie wir gemeinsam eine lebenswerte Zukunft gestalten.",
+projectsEyebrow:"Projekte & Veranstaltungen",projectsTitle:"Aktuelle Aktivitäten",soon:"Demnächst verfügbar",projectsText:"Neue Workshops, Veranstaltungen und Termine werden hier regelmäßig veröffentlicht. Bei Interesse können Sie uns gerne kontaktieren.",ask:"Jetzt anfragen",
+membershipEyebrow:"Mitglied werden",membershipTitle:"Gemeinsam können wir mehr erreichen.",membershipText:"Sie möchten unsere Arbeit unterstützen oder aktiv Teil unseres Vereins werden? Wir freuen uns über Menschen, die unsere Ziele und Werte teilen und sich gemeinsam mit uns engagieren möchten.",fee:"Jährlicher Mitgliedsbeitrag: 39 €",membershipContact:"Informationen zur Mitgliedschaft",
+coopEyebrow:"Kooperationen",coopTitle:"Gemeinsam Wirkung schaffen",c1:"Bildungseinrichtungen",c2:"Beratungsstellen",c3:"Behörden und öffentliche Einrichtungen",c4:"Vereine und gemeinnützige Organisationen",c5:"Soziale und kulturelle Einrichtungen",c6:"Unternehmen und Projektpartner",
+contactEyebrow:"Kontakt",contactTitle:"Wir freuen uns auf Ihre Nachricht.",email:"E-Mail schreiben",imprintEyebrow:"Impressum",imprintTitle:"Rechtliche Angaben",party:"Der Verein ist parteipolitisch unabhängig.",privacyEyebrow:"Datenschutz",privacyTitle:"Datenschutz",privacyText:"Die Datenschutzerklärung wird entsprechend der für diese Website verwendeten technischen Plattform und Dienste erstellt.",footer:"Verein für Bildung, Technik, soziale Teilhabe und Nachhaltigkeit"},
+en:{
+navHome:"Home",navAbout:"About us",navGoals:"Our goals",navValues:"Our values",navOffers:"What we do",navProjects:"Projects & events",navMembership:"Become a member",navCoop:"Cooperations",navContact:"Contact",navImprint:"Legal notice",navPrivacy:"Privacy",
+eyebrow:"Association for education, technology, social participation and sustainability",heroTitle:"Opening paths together. Creating opportunities. Shaping the future.",heroText:"We create spaces for connection, education, exchange, mutual support and personal development while promoting equal opportunities, social participation and new perspectives.",more:"About us",join:"Become a member",contactBtn:"Contact",
+aboutEyebrow:"About us",aboutTitle:"Who we are",aboutText:"Ein Weg für Morgen is a non-profit association based in Vienna. We help women strengthen their skills, develop new perspectives and take an active part in society. Our services are generally open to everyone.",visionTitle:"Our vision",visionText:"We envision a society in which everyone, regardless of origin or life story, has access to education, opportunities, community and social participation.",
+goalsEyebrow:"Our goals",goalsTitle:"What we work on",g1:"Education & knowledge",g1p:"Promoting education, continuing education, language skills and access to important information.",g2:"Equal opportunities & empowerment",g2p:"Strengthening people and supporting them in shaping their future independently.",g3:"Social participation & integration",g3p:"Creating opportunities for meeting, exchange, networking and active participation in society.",g4:"Career guidance",g4p:"Providing information about education, training, the world of work and professional development.",g5:"Intercultural exchange",g5p:"Promoting understanding and dialogue between people from different cultural backgrounds.",g6:"Sustainability & environment",g6p:"Sharing knowledge about climate and environmental protection, biodiversity and responsible use of resources.",g7:"Technology & digitalisation",g7p:"Promoting digital skills and access to technical and digital topics.",
+valuesEyebrow:"Our values",valuesTitle:"E – W – F – M",v1:"Strengthening people and making their abilities visible.",v2:"Promoting education, information and lifelong learning.",v3:"Creating opportunities and supporting personal and social development.",v4:"Living respect, solidarity, community and mutual support.",
+offersEyebrow:"What we do",offersTitle:"Offers for people and community",o1:"Workshops & education",o1p:"Workshops, information events, seminars and discussion groups on social and practical topics.",o2:"Guidance & information",o2p:"Information and guidance in areas such as education, careers, integration and social participation.",o3:"Community & connection",o3p:"Events, cultural activities and joint projects that encourage exchange, networking and respectful cooperation.",o4:"Sustainability & future",o4p:"Environment, sustainability, digitalisation and technology – and how we can shape a better future together.",
+projectsEyebrow:"Projects & events",projectsTitle:"Current activities",soon:"Coming soon",projectsText:"New workshops, events and dates will be published here regularly. Please contact us if you are interested.",ask:"Get in touch",
+membershipEyebrow:"Become a member",membershipTitle:"Together we can achieve more.",membershipText:"Would you like to support our work or become an active part of our association? We welcome people who share our goals and values and want to get involved with us.",fee:"Annual membership fee: €39",membershipContact:"Membership information",
+coopEyebrow:"Cooperations",coopTitle:"Creating greater impact together",c1:"Educational institutions",c2:"Counselling centres",c3:"Authorities and public institutions",c4:"Associations and non-profit organisations",c5:"Social and cultural institutions",c6:"Companies and project partners",
+contactEyebrow:"Contact",contactTitle:"We look forward to hearing from you.",email:"Send an email",imprintEyebrow:"Legal notice",imprintTitle:"Legal information",party:"The association is politically independent.",privacyEyebrow:"Privacy",privacyTitle:"Privacy",privacyText:"The privacy policy will be prepared according to the technical platform and services used for this website.",footer:"Association for education, technology, social participation and sustainability"},
+ar:{
+navHome:"الرئيسية",navAbout:"من نحن",navGoals:"أهدافنا",navValues:"قيمنا",navOffers:"ماذا نقدم",navProjects:"المشاريع والفعاليات",navMembership:"العضوية",navCoop:"التعاون والشراكات",navContact:"التواصل",navImprint:"البيانات القانونية",navPrivacy:"حماية البيانات",
+eyebrow:"جمعية للتعليم والتقنية والمشاركة الاجتماعية والاستدامة",heroTitle:"معًا نفتح الطرق، نصنع الفرص، ونبني المستقبل.",heroText:"نوفر مساحات للقاء، والتعليم، وتبادل الخبرات، والتضامن المتبادل، والتطور الشخصي، ونعزز تكافؤ الفرص والمشاركة المجتمعية وفتح آفاق جديدة.",more:"اعرف المزيد عنا",join:"انضم إلينا",contactBtn:"تواصل معنا",
+aboutEyebrow:"من نحن",aboutTitle:"من نحن",aboutText:"Ein Weg für Morgen جمعية غير ربحية مقرها في فيينا. نسعى إلى مساعدة النساء على تطوير قدراتهن، واكتساب مهارات جديدة، وفتح آفاق مستقبلية أفضل، والمشاركة الفعالة في المجتمع. وتبقى أنشطة الجمعية مفتوحة بصورة عامة أمام المهتمين.",visionTitle:"رؤيتنا",visionText:"نطمح إلى مجتمع يتمتع فيه الجميع، بغض النظر عن الأصل أو الخلفية أو ظروف الحياة، بفرص عادلة في التعليم، والتطور، والمشاركة، والانتماء المجتمعي.",
+goalsEyebrow:"أهدافنا",goalsTitle:"مجالات عملنا",g1:"التعليم والمعرفة",g1p:"دعم التعليم، والتدريب، وتطوير المهارات اللغوية، وتسهيل الوصول إلى المعلومات المهمة.",g2:"تكافؤ الفرص والتمكين",g2p:"دعم الناس وتمكينهم من اكتشاف قدراتهم وتطوير مهاراتهم واتخاذ قراراتهم المستقبلية بصورة مستقلة.",g3:"المشاركة الاجتماعية والاندماج",g3p:"توفير فرص للقاء، والتواصل، وبناء العلاقات، والمشاركة الفعالة في المجتمع.",g4:"التوجيه التعليمي والمهني",g4p:"تقديم معلومات ودعم في مجالات التعليم، والتدريب، والعمل، والتطور المهني.",g5:"التبادل بين الثقافات",g5p:"تعزيز الحوار، والاحترام المتبادل، والتفاهم بين الأشخاص من خلفيات ثقافية ومجتمعية مختلفة.",g6:"الاستدامة والبيئة",g6p:"نشر المعرفة حول حماية البيئة والمناخ، والتنوع البيولوجي، وأنماط الحياة المستدامة، والاستخدام المسؤول للموارد.",g7:"التقنية والرقمنة",g7p:"تطوير المهارات الرقمية وتسهيل الوصول إلى المعرفة التقنية والرقمية.",
+valuesEyebrow:"قيمنا",valuesTitle:"E – W – F – M",v1:"دعم الأشخاص وتعزيز قدراتهم وثقتهم بأنفسهم.",v2:"تعزيز التعليم والمعلومات والتعلم المستمر.",v3:"فتح الفرص ودعم التطور الشخصي والاجتماعي.",v4:"تعزيز الاحترام، والتعاون، والتضامن، والتواصل بين الناس.",
+offersEyebrow:"ماذا نقدم؟",offersTitle:"أنشطة وخدمات للمجتمع",o1:"ورش العمل والتعليم",o1p:"ننظم ورشًا، ومحاضرات، وندوات، ولقاءات نقاشية حول موضوعات تعليمية واجتماعية وعملية متنوعة.",o2:"التوجيه والمعلومات",o2p:"نقدم معلومات وتوجيهًا في مجالات التعليم، والعمل، والاندماج، والمشاركة المجتمعية.",o3:"اللقاء والمجتمع",o3p:"من خلال الفعاليات، والأنشطة الثقافية، والمشاريع المشتركة، نشجع التواصل، وبناء العلاقات، وروح التعاون.",o4:"الاستدامة والمستقبل",o4p:"نهتم بموضوعات البيئة، والاستدامة، والتقنية، والرقمنة، وبكيفية المساهمة معًا في بناء مستقبل أفضل.",
+projectsEyebrow:"المشاريع والفعاليات",projectsTitle:"الأنشطة الحالية",soon:"سيتم الإعلان قريبًا",projectsText:"سيتم تحديث هذه الصفحة بصورة منتظمة بكل المواعيد والورش والمشاريع الجديدة. للاستفسار أو التسجيل، يمكنكم التواصل معنا.",ask:"تواصل معنا",
+membershipEyebrow:"العضوية",membershipTitle:"معًا نستطيع تحقيق المزيد.",membershipText:"إذا كنت ترغب في دعم أنشطة الجمعية أو المشاركة فيها، يسعدنا انضمامك إلينا. نرحب بمن يؤمن بأهدافنا وقيمنا ويرغب في المساهمة معنا.",fee:"رسوم العضوية السنوية: 39 يورو",membershipContact:"معلومات العضوية",
+coopEyebrow:"التعاون والشراكات",coopTitle:"معًا نصنع أثرًا أكبر",c1:"المؤسسات التعليمية",c2:"مراكز الاستشارة والدعم",c3:"الجهات والهيئات العامة",c4:"الجمعيات والمنظمات غير الربحية",c5:"المؤسسات الاجتماعية والثقافية",c6:"الشركات والشركاء في المشاريع",
+contactEyebrow:"التواصل",contactTitle:"يسعدنا تواصلكم معنا.",email:"إرسال بريد إلكتروني",imprintEyebrow:"البيانات القانونية",imprintTitle:"معلومات قانونية",party:"الجمعية مستقلة سياسيًا وغير تابعة لأي حزب سياسي.",privacyEyebrow:"حماية البيانات",privacyTitle:"حماية البيانات",privacyText:"سيتم إعداد سياسة حماية البيانات بصورة نهائية وفقًا للمنصة والخدمات التقنية المستخدمة في الموقع.",footer:"جمعية للتعليم، التقنية، المشاركة الاجتماعية والاستدامة"}
+};
+function setLang(lang){
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(el=>{const k=el.dataset.t;if(T[lang][k])el.textContent=T[lang][k]});
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.remove("active"));
+  document.getElementById(lang).classList.add("active");
+  localStorage.setItem("lang",lang);
+}
+function toggleMobile(){document.getElementById("sidebar").style.display="flex"}
+setLang(localStorage.getItem("lang")||"de");
+</script>
+</body>
+</html>
